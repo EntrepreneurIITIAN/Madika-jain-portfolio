@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 dark:bg-[#0a0a1a] dark:text-gray-100 font-sans transition-colors duration-500;
+  }
+
+  ::selection {
+    @apply bg-purple-500/30 dark:text-purple-100 text-purple-900;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-purple-500 via-rose-500 to-orange-400 dark:from-purple-400 dark:via-rose-400 dark:to-orange-400 bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    background: linear-gradient(135deg, #a855f7, #e11d48, #f97316, #a855f7);
+    background-size: 300% 300%;
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  .gradient-btn {
+    @apply bg-gradient-to-r from-purple-600 via-rose-500 to-pink-500 text-white font-semibold;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gradient-btn:hover {
+    @apply shadow-xl shadow-purple-500/30;
+    transform: translateY(-2px);
+  }
+
+  .card {
+    @apply bg-white/80 dark:bg-[#12122a]/80 backdrop-blur-lg border border-gray-200/60 dark:border-gray-800/40 rounded-2xl transition-all duration-500 ease-out;
+  }
+
+  .card-hover {
+    @apply bg-white/80 dark:bg-[#12122a]/80 backdrop-blur-lg border border-gray-200/60 dark:border-gray-800/40 rounded-2xl transition-all duration-500 ease-out;
+  }
+
+  .card-hover:hover {
+    @apply border-purple-500/30 dark:border-purple-500/25;
+    box-shadow: 0 8px 32px rgba(168, 85, 247, 0.08), 0 0 0 1px rgba(168, 85, 247, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .icon-box {
+    @apply w-14 h-14 rounded-xl flex items-center justify-center transition-transform duration-500;
+  }
+
+  .icon-box-sm {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-500;
+  }
+
+  .section-label {
+    @apply inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-[0.2em] uppercase text-purple-400 dark:text-purple-400 text-purple-600;
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  @apply dark:bg-[#0a0a1a] bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-purple-500/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-purple-500/50;
+}
