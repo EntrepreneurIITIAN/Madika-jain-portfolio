@@ -13,7 +13,9 @@ export default function Footer() {
 
           <div className="flex items-center gap-3">
             <a
-              href="#"
+              href="https://www.linkedin.com/in/madika-jain-439335229/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-10 h-10 rounded-xl dark:bg-white/5 bg-gray-100 border dark:border-white/8 border-gray-200 flex items-center justify-center dark:text-gray-400 text-gray-500 hover:text-purple-500 dark:hover:text-purple-400 hover:dark:border-purple-500/30 hover:border-purple-300 transition-all duration-400"
               aria-label="LinkedIn"
             >

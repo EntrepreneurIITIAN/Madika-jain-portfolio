@@ -11,7 +11,7 @@ import { FaLinkedinIn } from 'react-icons/fa'
 
 const contactInfo = [
   { icon: HiOutlineMail, label: 'Email', value: 'madikajain24@gmail.com', href: 'mailto:madikajain24@gmail.com' },
-  { icon: FaLinkedinIn, label: 'LinkedIn', value: 'Connect on LinkedIn', href: '#' },
+  { icon: FaLinkedinIn, label: 'LinkedIn', value: 'Connect on LinkedIn', href: 'https://www.linkedin.com/in/madika-jain-439335229/' },
   { icon: HiOutlinePhone, label: 'Phone', value: '+91 7668752751', href: 'tel:+917668752751' },
   { icon: HiOutlineLocationMarker, label: 'Location', value: 'Gurgaon, Haryana, India', href: null },
 ]
