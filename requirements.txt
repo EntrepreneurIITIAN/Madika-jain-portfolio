@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+resend==2.25.0
+pydantic[email]
