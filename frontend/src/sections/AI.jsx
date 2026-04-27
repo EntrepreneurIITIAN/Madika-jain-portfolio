@@ -72,7 +72,7 @@ export default function AI() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.45, delay: 0.08 * index }}
-                    className="flex items-center gap-3 p-3.5 rounded-xl dark:bg-violet-500/6 bg-violet-50/60 border dark:border-violet-500/14 border-violet-200/50 transition-all duration-300 hover:dark:border-violet-500/28 hover:border-violet-300"
+                    className="flex items-center gap-3 p-3.5 rounded-xl dark:bg-violet-500/10 bg-violet-50 border dark:border-violet-500/20 border-violet-200/60 transition-all duration-300 hover:dark:border-violet-500/35 hover:border-violet-300"
                   >
                     <div
                       className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center flex-shrink-0"
