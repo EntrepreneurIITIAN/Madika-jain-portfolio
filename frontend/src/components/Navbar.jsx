@@ -3,105 +3,120 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HiSun, HiMoon, HiMenu, HiX } from 'react-icons/hi'
 
 const navLinks = [
-  { name: 'Home',     href: '#home'     },
-  { name: 'About',    href: '#about'    },
-  { name: 'Skills',   href: '#skills'   },
-  { name: 'AI',       href: '#ai'       },
+  { name: 'Home',     href: '#home' },
+  { name: 'About',    href: '#about' },
+  { name: 'Skills',   href: '#skills' },
+  { name: 'AI',       href: '#ai' },
   { name: 'Projects', href: '#projects' },
-  { name: 'Contact',  href: '#contact'  },
+  { name: 'Contact',  href: '#contact' },
 ]
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
-  const [scrolled, setScrolled]     = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [active, setActive]         = useState('home')
+  const [activeId, setActiveId] = useState('home')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
+    const sections = navLinks
+      .map(l => document.querySelector(l.href))
+      .filter(Boolean)
+    if (!sections.length) return
+
     const observer = new IntersectionObserver(
       entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActive(entry.target.id)
+        entries.forEach(e => {
+          if (e.isIntersecting) setActiveId(e.target.id)
         })
       },
-      { rootMargin: '-40% 0px -55% 0px' }
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
     )
-    navLinks.forEach(link => {
-      const el = document.getElementById(link.href.slice(1))
-      if (el) observer.observe(el)
-    })
+    sections.forEach(s => observer.observe(s))
     return () => observer.disconnect()
   }, [])
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'dark:bg-[#09090b]/88 bg-white/88 backdrop-blur-2xl border-b dark:border-white/5 border-gray-200/60 dark:shadow-black/30 shadow-gray-200/20 shadow-lg'
-          : 'bg-transparent'
+          ? 'bg-cream-100/85 dark:bg-cream-900/85 backdrop-blur-xl border-b border-cream-300/70 dark:border-cream-700/70'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <a href="#home" className="text-2xl font-display font-bold gradient-text select-none">
-            MJ
+          {/* Wordmark */}
+          <a href="#home" className="group flex items-baseline gap-2">
+            <span className="font-serif text-[22px] leading-none tracking-tightest text-cream-900 dark:text-cream-100">
+              Madika
+            </span>
+            <span className="font-serif italic text-[22px] leading-none tracking-tightest text-coral-600 dark:text-coral-400">
+              Jain
+            </span>
           </a>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(link => {
-              const isActive = active === link.href.slice(1)
+              const id = link.href.slice(1)
+              const isActive = activeId === id
               return (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-300 ${
-                    isActive
-                      ? 'dark:text-white text-gray-900'
-                      : 'dark:text-gray-400 text-gray-500 dark:hover:text-white hover:text-gray-900'
-                  }`}
+                  className="relative px-3.5 py-2 text-sm font-medium text-cream-700 dark:text-cream-300 hover:text-cream-900 dark:hover:text-cream-50 transition-colors duration-300"
                 >
-                  {link.name}
                   {isActive && (
                     <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-lg dark:bg-white/8 bg-gray-100/90"
-                      style={{ zIndex: -1 }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 36 }}
+                      layoutId="nav-active"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      className="absolute inset-0 rounded-full bg-cream-200/80 dark:bg-cream-800/70"
                     />
                   )}
+                  <span className="relative">{link.name}</span>
                 </a>
               )
             })}
-          </div>
 
-          {/* Controls */}
-          <div className="flex items-center gap-2">
             <button
               onClick={toggleDarkMode}
-              className="w-9 h-9 rounded-full dark:bg-white/5 bg-gray-100 border dark:border-white/8 border-gray-200 flex items-center justify-center transition-all duration-300 hover:dark:border-violet-500/30 hover:border-violet-300"
+              className="ml-3 w-9 h-9 rounded-full flex items-center justify-center border border-cream-300 dark:border-cream-700 text-cream-700 dark:text-cream-300 hover:border-coral-400 hover:text-coral-600 dark:hover:text-coral-400 transition-all"
               aria-label="Toggle theme"
             >
               {darkMode
-                ? <HiSun  className="w-4 h-4 text-amber-400" />
-                : <HiMoon className="w-4 h-4 text-gray-600"  />
-              }
+                ? <HiSun  className="w-4 h-4" />
+                : <HiMoon className="w-4 h-4" />}
+            </button>
+          </div>
+
+          {/* Mobile controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={toggleDarkMode}
+              className="w-9 h-9 rounded-full flex items-center justify-center border border-cream-300 dark:border-cream-700 text-cream-700 dark:text-cream-300"
+              aria-label="Toggle theme"
+            >
+              {darkMode
+                ? <HiSun  className="w-4 h-4" />
+                : <HiMoon className="w-4 h-4" />}
             </button>
             <button
               onClick={() => setMobileOpen(o => !o)}
-              className="md:hidden w-9 h-9 rounded-full dark:bg-white/5 bg-gray-100 border dark:border-white/8 border-gray-200 flex items-center justify-center"
+              className="w-9 h-9 rounded-full flex items-center justify-center border border-cream-300 dark:border-cream-700 text-cream-700 dark:text-cream-300"
               aria-label="Toggle menu"
             >
-              {mobileOpen ? <HiX className="w-4 h-4" /> : <HiMenu className="w-4 h-4" />}
+              {mobileOpen
+                ? <HiX    className="w-5 h-5" />
+                : <HiMenu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -114,8 +129,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden dark:bg-[#09090b]/96 bg-white/96 backdrop-blur-2xl border-t dark:border-white/5 border-gray-200/50"
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="md:hidden bg-cream-100/95 dark:bg-cream-900/95 backdrop-blur-xl border-t border-cream-300/70 dark:border-cream-700/70 overflow-hidden"
           >
             <div className="px-6 py-4 space-y-1">
               {navLinks.map(link => (
@@ -123,11 +138,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                    active === link.href.slice(1)
-                      ? 'dark:bg-white/8 bg-gray-100 dark:text-white text-gray-900'
-                      : 'dark:text-gray-400 text-gray-500'
-                  }`}
+                  className="block px-4 py-2.5 rounded-xl text-sm font-medium text-cream-700 dark:text-cream-300 hover:bg-cream-200 dark:hover:bg-cream-800 hover:text-coral-600 dark:hover:text-coral-400 transition-all"
                 >
                   {link.name}
                 </a>

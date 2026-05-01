@@ -5,99 +5,97 @@ import {
   HiOutlineBriefcase,
 } from 'react-icons/hi'
 import { HiOutlineCpuChip } from 'react-icons/hi2'
-import TiltCard from '../components/TiltCard'
 
-const achievements = [
+const milestones = [
   {
     icon: HiOutlinePencilAlt,
+    period: 'Now',
     title: 'Content Writer',
-    subtitle: 'At CollegeDunia',
-    gradient: 'from-violet-500 to-fuchsia-500',
-    glow: 'rgba(139,92,246,0.35)',
-    accentColor: '#a78bfa',
+    org: 'CollegeDunia',
+    note: 'Editorial work helping students navigate higher education in India.',
   },
   {
     icon: HiOutlineAcademicCap,
+    period: 'In progress',
     title: 'MBA Candidate',
-    subtitle: 'Finance & Human Resources',
-    gradient: 'from-fuchsia-500 to-rose-500',
-    glow: 'rgba(232,121,249,0.32)',
-    accentColor: '#e879f9',
+    org: 'Finance & Human Resources',
+    note: 'Building the strategic and analytical foundation under the writing.',
   },
   {
     icon: HiOutlineCpuChip,
+    period: 'Ongoing',
     title: 'AI Explorer',
-    subtitle: 'Learning LLM & AI tools',
-    gradient: 'from-violet-600 to-purple-500',
-    glow: 'rgba(109,40,217,0.35)',
-    accentColor: '#8b5cf6',
+    org: 'LLM tools & prompt design',
+    note: 'Quietly weaving modern AI into the daily research workflow.',
   },
   {
     icon: HiOutlineBriefcase,
-    title: 'Former BDE',
-    subtitle: 'Lawgical India',
-    gradient: 'from-rose-500 to-orange-400',
-    glow: 'rgba(244,63,94,0.32)',
-    accentColor: '#fb7185',
+    period: 'Previously',
+    title: 'Business Development',
+    org: 'Lawgical India',
+    note: 'Client conversations and partnerships before the writing chapter.',
   },
 ]
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
+  viewport: { once: true, margin: '-40px' },
   transition: { duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] },
 })
 
 export default function Achievements() {
   return (
-    <section className="py-28 relative">
-      {/* Ambient glow */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full animate-pulse-glow"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(109,40,217,0.08) 0%, rgba(190,24,93,0.04) 50%, transparent 75%)',
-            filter: 'blur(80px)',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
-        <motion.div {...fadeUp()} className="text-center mb-16">
-          <p className="section-label justify-center">Milestones</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold dark:text-white text-gray-900">
-            Key <span className="gradient-text">Achievements</span>
+    <section className="relative py-28 sm:py-36">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <motion.div {...fadeUp()} className="max-w-3xl mb-16">
+          <p className="section-label">Milestones</p>
+          <h2 className="display-heading text-4xl sm:text-5xl lg:text-6xl">
+            A short <span className="accent">timeline</span> of where the work has gone.
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" style={{ perspective: '1200px' }}>
-          {achievements.map((item, index) => (
-            <motion.div key={item.title} {...fadeUp(0.1 * index)}>
-              <TiltCard className="card-hover p-7 text-center group h-full" intensity={7}>
-                {/* Icon */}
-                <div
-                  className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-5`}
-                  style={{
-                    boxShadow: `0 12px 36px ${item.glow}, 0 0 0 1px rgba(255,255,255,0.06)`,
-                    transform: 'translateZ(16px)',
-                  }}
-                >
-                  <item.icon className="w-7 h-7 text-white" />
+        {/* Vertical hairline timeline */}
+        <div className="relative pl-6 sm:pl-8">
+          <span
+            aria-hidden
+            className="absolute top-2 bottom-2 left-0 w-px bg-cream-300 dark:bg-cream-700"
+          />
+          <div className="space-y-10">
+            {milestones.map((m, i) => (
+              <motion.article
+                key={m.title}
+                {...fadeUp(0.05 * i)}
+                className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group"
+              >
+                {/* Dot on the line */}
+                <span className="absolute -left-[26px] sm:-left-[34px] top-3 w-3 h-3 rounded-full bg-cream-100 dark:bg-cream-900 border-2 border-coral-500 group-hover:scale-125 transition-transform" />
+
+                {/* Period */}
+                <div className="lg:col-span-2 font-mono text-[11px] uppercase tracking-widest text-coral-600 dark:text-coral-400 pt-2">
+                  {m.period}
                 </div>
 
-                {/* Label */}
-                <h3 className="dark:text-white text-gray-900 font-bold text-lg">{item.title}</h3>
-                <p className="dark:text-gray-400 text-gray-500 text-sm mt-1.5 leading-relaxed">{item.subtitle}</p>
-
-                {/* Bottom accent */}
-                <div
-                  className="mt-5 h-[1px] mx-auto w-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: `linear-gradient(90deg, transparent, ${item.accentColor}, transparent)` }}
-                />
-              </TiltCard>
-            </motion.div>
-          ))}
+                {/* Content */}
+                <div className="lg:col-span-10 card-hover p-7 flex gap-5">
+                  <div className="icon-box-sm flex-shrink-0">
+                    <m.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl text-cream-900 dark:text-cream-100">
+                      {m.title}
+                      <span className="font-sans font-normal text-base text-cream-600 dark:text-cream-400">
+                        {' '}· {m.org}
+                      </span>
+                    </h3>
+                    <p className="mt-2 text-sm text-cream-600 dark:text-cream-400 leading-relaxed">
+                      {m.note}
+                    </p>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

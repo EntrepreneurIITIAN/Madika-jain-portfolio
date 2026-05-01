@@ -1,19 +1,23 @@
 import { motion } from 'framer-motion'
-import { HiOutlineLightningBolt, HiOutlineCube } from 'react-icons/hi'
-import TiltCard from '../components/TiltCard'
+import {
+  HiOutlineSparkles,
+  HiOutlineSearch,
+  HiOutlinePencilAlt,
+  HiOutlineLightBulb,
+} from 'react-icons/hi'
 
-const aiSkills = [
-  'AI-assisted content generation',
-  'Prompt engineering for research workflows',
-  'LLM-powered information synthesis',
-  'AI tools for productivity and content strategy',
+const aiCapabilities = [
+  { icon: HiOutlinePencilAlt, label: 'AI-assisted content generation' },
+  { icon: HiOutlineLightBulb, label: 'Prompt engineering for research workflows' },
+  { icon: HiOutlineSparkles,  label: 'LLM-powered information synthesis' },
+  { icon: HiOutlineSearch,    label: 'AI tools for productivity & strategy' },
 ]
 
 const tools = [
-  { name: 'ChatGPT',    emoji: '🤖', desc: 'Content ideation & drafting',          gradient: 'from-emerald-500 to-teal-500',    glow: 'rgba(16,185,129,0.25)' },
-  { name: 'Claude',     emoji: '✨', desc: 'Research synthesis & editing',          gradient: 'from-violet-500 to-fuchsia-500',  glow: 'rgba(139,92,246,0.28)' },
-  { name: 'Perplexity', emoji: '🔍', desc: 'Real-time research queries',            gradient: 'from-sky-500 to-blue-500',        glow: 'rgba(14,165,233,0.25)' },
-  { name: 'Notion AI',  emoji: '📝', desc: 'Content planning & organisation',       gradient: 'from-rose-500 to-pink-500',       glow: 'rgba(244,63,94,0.25)'  },
+  { name: 'Claude',     desc: 'Long-form research synthesis & editing' },
+  { name: 'ChatGPT',    desc: 'Ideation & first-draft scaffolding' },
+  { name: 'Perplexity', desc: 'Real-time research queries' },
+  { name: 'Notion AI',  desc: 'Content planning & organisation' },
 ]
 
 const fadeUp = (delay = 0) => ({
@@ -25,85 +29,79 @@ const fadeUp = (delay = 0) => ({
 
 export default function AI() {
   return (
-    <section id="ai" className="py-28 relative">
-      {/* Background glow */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full animate-pulse-glow"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(109,40,217,0.1) 0%, rgba(168,85,247,0.04) 50%, transparent 75%)',
-            filter: 'blur(60px)',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
-        <motion.div {...fadeUp()} className="mb-16">
-          <p className="section-label">AI & Technology</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold dark:text-white text-gray-900">
-            Exploring <span className="gradient-text">Artificial Intelligence</span>
+    <section id="ai" className="relative py-28 sm:py-36">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <motion.div {...fadeUp()} className="max-w-3xl">
+          <p className="section-label">AI · Workflow</p>
+          <h2 className="display-heading text-4xl sm:text-5xl lg:text-6xl">
+            Working <span className="accent">alongside</span> the new tools, not behind them.
           </h2>
+          <p className="mt-6 text-lg text-cream-600 dark:text-cream-400 leading-relaxed">
+            Madika is actively learning modern AI tools and large language model
+            ecosystems to enhance research, content creation, and knowledge delivery.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          {/* Left — Description + skill list */}
-          <motion.div {...fadeUp(0.1)}>
-            <TiltCard className="card p-8 sm:p-10 h-full" intensity={4}>
-              <div className="flex items-start gap-4 mb-7">
-                <div
-                  className="icon-box bg-gradient-to-br from-violet-500 to-fuchsia-500 flex-shrink-0"
-                  style={{ boxShadow: '0 8px 28px rgba(139,92,246,0.35)' }}
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Capabilities list */}
+          <motion.div {...fadeUp(0.1)} className="lg:col-span-7 card p-8 sm:p-10">
+            <div className="flex items-center justify-between mb-8 pb-6 border-b border-cream-200 dark:border-cream-700">
+              <h3 className="font-serif text-xl text-cream-900 dark:text-cream-100">
+                What that looks like
+              </h3>
+              <span className="font-mono text-[11px] uppercase tracking-widest text-cream-500 dark:text-cream-500">
+                in practice
+              </span>
+            </div>
+            <ul className="space-y-5">
+              {aiCapabilities.map((c, i) => (
+                <motion.li
+                  key={c.label}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.08 * i }}
+                  className="flex items-start gap-4 group"
                 >
-                  <HiOutlineCube className="w-7 h-7 text-white" />
-                </div>
-                <p className="dark:text-gray-300 text-gray-600 text-base sm:text-lg leading-relaxed">
-                  Madika is actively learning modern AI tools and large language
-                  model ecosystems to enhance research, content creation, and
-                  knowledge delivery.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {aiSkills.map((skill, index) => (
-                  <motion.div
-                    key={skill}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: 0.08 * index }}
-                    className="flex items-center gap-3 p-3.5 rounded-xl dark:bg-violet-500/10 bg-violet-50 border dark:border-violet-500/20 border-violet-200/60 transition-all duration-300 hover:dark:border-violet-500/35 hover:border-violet-300"
-                  >
-                    <div
-                      className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center flex-shrink-0"
-                      style={{ boxShadow: '0 4px 12px rgba(139,92,246,0.3)' }}
-                    >
-                      <HiOutlineLightningBolt className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="dark:text-gray-200 text-gray-700 text-sm font-medium leading-snug">{skill}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </TiltCard>
+                  <span className="mt-1 w-6 h-6 rounded-full bg-coral-50 dark:bg-coral-900/30 border border-coral-200 dark:border-coral-700/40 flex items-center justify-center flex-shrink-0">
+                    <c.icon className="w-3.5 h-3.5 text-coral-600 dark:text-coral-400" />
+                  </span>
+                  <span className="text-cream-800 dark:text-cream-200 text-base group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
+                    {c.label}
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
           </motion.div>
 
-          {/* Right — AI Tool cards 2×2 */}
-          <div className="grid grid-cols-2 gap-4" style={{ perspective: '1000px' }}>
-            {tools.map((tool, index) => (
-              <motion.div key={tool.name} {...fadeUp(0.1 * index + 0.15)}>
-                <TiltCard className="card-hover p-6 h-full" intensity={7}>
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${tool.gradient} flex items-center justify-center mb-4`}
-                    style={{ boxShadow: `0 8px 24px ${tool.glow}` }}
-                  >
-                    <span className="text-xl">{tool.emoji}</span>
-                  </div>
-                  <h4 className="font-display font-bold dark:text-white text-gray-900 mb-1.5">{tool.name}</h4>
-                  <p className="text-xs dark:text-gray-400 text-gray-500 leading-relaxed">{tool.desc}</p>
-                </TiltCard>
-              </motion.div>
-            ))}
-          </div>
+          {/* Tools list */}
+          <motion.div {...fadeUp(0.2)} className="lg:col-span-5 card p-8 sm:p-10 bg-coral-50/50 dark:bg-coral-900/10">
+            <h3 className="font-serif text-xl text-cream-900 dark:text-cream-100 mb-2">
+              Tools in rotation
+            </h3>
+            <p className="text-sm text-cream-600 dark:text-cream-400 mb-6">
+              The current studio shelf.
+            </p>
+            <div className="space-y-4">
+              {tools.map((t, i) => (
+                <motion.div
+                  key={t.name}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.05 * i }}
+                  className="flex items-baseline justify-between pb-3 border-b border-cream-300/60 dark:border-cream-700/50 last:border-0"
+                >
+                  <span className="font-serif text-lg text-cream-900 dark:text-cream-100">
+                    {t.name}
+                  </span>
+                  <span className="text-xs text-cream-600 dark:text-cream-400 text-right max-w-[60%]">
+                    {t.desc}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -17,9 +17,9 @@ function App() {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode')
       if (saved !== null) return JSON.parse(saved)
-      return true // default dark
+      return false // default light (Claude editorial cream)
     }
-    return true
+    return false
   })
 
   useEffect(() => {
@@ -35,11 +35,18 @@ function App() {
         position="bottom-right"
         toastOptions={{
           style: {
-            background: darkMode ? '#1f2937' : '#ffffff',
-            color: darkMode ? '#f3f4f6' : '#111827',
-            border: darkMode ? '1px solid rgba(75,85,99,0.4)' : '1px solid rgba(229,231,235,0.8)',
+            background: darkMode ? '#2a2724' : '#ffffff',
+            color:      darkMode ? '#faf9f5' : '#1f1d1a',
+            border:     darkMode ? '1px solid rgba(255,249,245,0.10)' : '1px solid rgba(15,13,10,0.08)',
+            borderRadius: '14px',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '14px',
           },
           duration: 4000,
+          iconTheme: {
+            primary: '#d97757',
+            secondary: darkMode ? '#2a2724' : '#ffffff',
+          },
         }}
       />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
